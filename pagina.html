@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0b1220">
+    <title>Laboratório de pH e temperatura</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="pagina.js" defer></script>
+</head>
+
+<body>
+    <main class="laboratorio">
+        <header class="cabecalho">
+            <div class="icone-lab" aria-hidden="true">🧪</div>
+            <div>
+                <p class="sobretitulo">LABORATÓRIO VIRTUAL</p>
+                <h1>Explorador de pH</h1>
+                <p class="introducao">Explore o pH e descubra como a temperatura pode alterar o volume de um líquido.</p>
+            </div>
+        </header>
+
+        <section class="painel configuracao" aria-labelledby="titulo-amostra">
+            <div class="titulo-secao">
+                <span class="passo">01</span>
+                <div>
+                    <h2 id="titulo-amostra">Prepare sua amostra</h2>
+                    <p>Escolha um líquido e ajuste as condições do experimento.</p>
+                </div>
+            </div>
+
+            <div class="controles">
+                <label class="campo" for="liquido">
+                    <span>Líquido</span>
+                    <select id="liquido">
+                        <option value="cola">Refrigerante de cola</option>
+                        <option value="urina">Urina (referência aproximada)</option>
+                        <option value="saliva">Saliva (referência aproximada)</option>
+                        <option value="agua">Água</option>
+                        <option value="limão">Suco de limão</option>
+                        <option value="acidobateria">Ácido de bateria</option>
+                        <option value="vinagre">Vinagre</option>
+                        <option value="energetico">Energético</option>
+                        <option value="vinho">Vinho</option>
+                        <option value="sangue">Sangue (referência aproximada)</option>
+                        <option value="cerveja">Cerveja</option>
+                        <option value="soro">Solução fisiológica</option>
+                        <option value="claraovo">Clara de ovo</option>
+                        <option value="detergente">Detergente neutro</option>
+                        <option value="leitemagnesia">Leite de magnésia</option>
+                        <option value="aguasanitaria">Água sanitária</option>
+                        <option value="sodacaustica">Soda cáustica diluída</option>
+                    </select>
+                </label>
+
+                <label class="campo" for="modo">
+                    <span>Tipo de sistema fechado</span>
+                    <select id="modo">
+                        <option value="movel">Pistão móvel (volume pode mudar)</option>
+                        <option value="rigido">Recipiente rígido (volume fixo)</option>
+                    </select>
+                </label>
+            </div>
+
+            <div class="temperatura-controle">
+                <div class="rotulo-temperatura">
+                    <label for="temperatura">Temperatura da amostra</label>
+                    <output id="temperatura-valor" for="temperatura">20 °C</output>
+                </div>
+                <input id="temperatura" type="range" min="0" max="80" step="1" value="20">
+                <div class="limites-temperatura"><span>0 °C · resfriando</span><span>80 °C · aquecendo</span></div>
+            </div>
+        </section>
+
+        <section class="resultados" aria-label="Resultados do experimento">
+            <article class="painel painel-ph">
+                <div class="titulo-secao">
+                    <span class="passo">02</span>
+                    <div>
+                        <h2>Medidor de pH</h2>
+                        <p id="nome-liquido">Refrigerante de cola</p>
+                    </div>
+                </div>
+
+                <div class="leitura-ph">
+                    <span id="ph" class="numero-ph">2,5</span>
+                    <span id="tipo" class="etiqueta-ph">Ácido</span>
+                </div>
+
+                <div class="escala-ph" role="img" aria-label="Escala de pH de 0 a 14">
+                    <div class="ponteiro" id="ponteiro"></div>
+                </div>
+                <div class="marcas-ph" aria-hidden="true"><span>0 · ácido</span><span>7 · neutro</span><span>14 · básico</span></div>
+                <p class="nota-ph">Valores didáticos aproximados. O pH real varia conforme a composição, concentração e temperatura da amostra.</p>
+            </article>
+
+            <article class="painel painel-volume">
+                <div class="titulo-secao">
+                    <span class="passo">03</span>
+                    <div>
+                        <h2>Volume da amostra</h2>
+                        <p>Volume inicial: <strong>250 mL a 20 °C</strong></p>
+                    </div>
+                </div>
+
+                <div class="experimento">
+                    <div class="recipiente-area">
+                        <div class="pistao" id="pistao" aria-hidden="true"><span></span></div>
+                        <div class="recipiente" aria-label="Representação visual do recipiente">
+                            <div class="liquido-visual" id="liquido-visual"></div>
+                            <div class="marcador-volume" aria-hidden="true"></div>
+                        </div>
+                        <span class="estado-termico" id="estado-termico">Temperatura ambiente</span>
+                    </div>
+
+                    <div class="leituras-volume">
+                        <div><span>Volume atual</span><strong id="volume-atual">250,0 mL</strong></div>
+                        <div><span>Variação</span><strong id="variacao-volume">0,0 mL</strong></div>
+                    </div>
+                </div>
+
+                <p class="explicacao" id="explicacao" aria-live="polite"></p>
+            </article>
+        </section>
+
+        <section class="painel mistura" aria-labelledby="titulo-mistura">
+            <div class="titulo-secao">
+                <span class="passo">04</span>
+                <div>
+                    <h2 id="titulo-mistura">Misture dois líquidos</h2>
+                    <p>Escolha as amostras e informe os volumes para estimar o pH da mistura.</p>
+                </div>
+            </div>
+
+            <div class="controles mistura-controles">
+                <label class="campo" for="liquido-mistura-1">
+                    <span>Primeiro líquido</span>
+                    <select id="liquido-mistura-1"></select>
+                </label>
+                <label class="campo" for="volume-mistura-1">
+                    <span>Volume (mL)</span>
+                    <input id="volume-mistura-1" type="number" min="1" max="1000" step="1" value="100">
+                </label>
+                <label class="campo" for="liquido-mistura-2">
+                    <span>Segundo líquido</span>
+                    <select id="liquido-mistura-2"></select>
+                </label>
+                <label class="campo" for="volume-mistura-2">
+                    <span>Volume (mL)</span>
+                    <input id="volume-mistura-2" type="number" min="1" max="1000" step="1" value="100">
+                </label>
+            </div>
+
+            <div class="resultado-mistura" aria-live="polite">
+                <div>
+                    <p class="rotulo-resultado">pH estimado da mistura</p>
+                    <div class="leitura-ph leitura-mistura">
+                        <span id="ph-mistura" class="numero-ph">7,0</span>
+                        <span id="tipo-mistura" class="etiqueta-ph neutro">Neutro</span>
+                    </div>
+                    <p id="resumo-mistura" class="resumo-mistura"></p>
+                </div>
+                <div class="visual-mistura">
+                    <div id="copo-mistura" class="copo-mistura" role="img" aria-label="Copo com a mistura de Refrigerante de cola e Água">
+                        <div id="liquido-mistura-visual" class="liquido-mistura-visual"></div>
+                    </div>
+                    <span id="volume-total-mistura" class="volume-total-mistura">200 mL</span>
+                </div>
+                <div class="escala-mistura" role="img" aria-label="Escala de pH estimado da mistura de 0 a 14">
+                    <div class="ponteiro" id="ponteiro-mistura"></div>
+                    <div class="marcas-ph" aria-hidden="true"><span>0 · ácido</span><span>7 · neutro</span><span>14 · básico</span></div>
+                </div>
+            </div>
+
+            <div class="explicacao-ao-vivo" aria-live="polite" aria-atomic="true">
+                <h3>O que acontece nessa mistura?</h3>
+                <p id="explicacao-mistura">A explicação será atualizada conforme você escolher os líquidos e ajustar os volumes.</p>
+            </div>
+            <p class="nota-mistura">Estimativa didática: o resultado considera a diluição e a neutralização ácido-base a partir dos pHs de referência. A composição real pode alterar o resultado.</p>
+        </section>
+
+        <footer class="rodape">
+            <p><strong>Modelo didático:</strong> no modo móvel, a amostra permanece fechada e sua massa não muda; o volume é estimado usando uma aproximação simplificada. No modo rígido, o volume fica constante e a pressão pode variar. O pH exibido é uma referência, não uma medição em tempo real. Não manipule ácido de bateria, água sanitária ou soda cáustica: são substâncias perigosas.</p>
+            <button id="reiniciar" class="botao-reiniciar" type="button">Reiniciar</button>
+        </footer>
+    </main>
+</body>
+</html>
